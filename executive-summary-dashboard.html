@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Summary Dashboard | OSUS Properties</title>
+    
+    <!-- External Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/recharts@2.8.0/lib/index.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Custom animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* Hover effects */
+        .metric-card:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #800020;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } = Recharts;
+
+        // Icon components (simplified versions)
+        const TrendingUp = ({ className, style }) => (
+            <svg className={className} style={style} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+        );
+
+        const TrendingDown = ({ className, style }) => (
+            <svg className={className} style={style} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                <polyline points="17 18 23 18 23 12"></polyline>
+            </svg>
+        );
+
+        const Users = ({ className, style }) => (
+            <svg className={className} style={style} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        );
+
+        const Target = ({ className, style }) => (
+            <svg className={className} style={style} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+                <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+        );
+
+        const Award = ({ className, style }) => (
+            <svg className={className} style={style} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+        );
+
+        const AlertTriangle = ({ className, style }) => (
+            <svg className={className} style={style} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+        );
+
+        const ExecutiveSummary = () => {
+            const [activeTab, setActiveTab] = useState('overview');
+            const [isLoaded, setIsLoaded] = useState(false);
+
+            useEffect(() => {
+                // Simulate loading time for better UX
+                setTimeout(() => setIsLoaded(true), 1000);
+            }, []);
+
+            // OSUS Brand Colors (Burgundy palette)
+            const brandColors = {
+                primary: '#800020',      // Primary Burgundy
+                secondary: '#A0253A',    // Secondary Burgundy  
+                accent: '#C04A5C',       // Lighter Burgundy
+                gold: '#D4AF37',         // Gold accent
+                lightGold: '#F5E6A8',    // Light Gold
+                offWhite: '#FAF9F6',     // Off-white
+                darkBurgundy: '#5C001A'  // Dark Burgundy
+            };
+
+            // Data from analysis
+            const keyMetrics = {
+                totalLeads: 20794,
+                customers: 133,
+                conversionRate: 0.64,
+                timeframe: "April 2025 - October 2024"
+            };
+
+            const sourceData = [
+                { name: 'Facebook', leads: 10511, customers: 30, rate: 0.29 },
+                { name: 'Instagram', leads: 6863, customers: 9, rate: 0.13 },
+                { name: 'Special Referral', leads: 2315, customers: 1, rate: 0.04 },
+                { name: 'WhatsApp', leads: 647, customers: 2, rate: 0.31 },
+                { name: 'Landing Page', leads: 163, customers: 0, rate: 0 },
+                { name: 'E-Mail', leads: 115, customers: 0, rate: 0 },
+                { name: 'Others', leads: 270, customers: 91, rate: 33.7 }
+            ];
+
+            const topPerformers = [
+                { name: 'Radwa Ahmed', leads: 323, customers: 8, rate: 2.5 },
+                { name: 'Karim El Sabagh', leads: 295, customers: 8, rate: 2.7 },
+                { name: 'Khaoula Boutouil', leads: 182, customers: 6, rate: 3.3 },
+                { name: 'Alisar Al Najdi', leads: 272, customers: 7, rate: 2.6 },
+                { name: 'Saad Khan', leads: 386, customers: 4, rate: 1.0 },
+                { name: 'Samia Khan', leads: 283, customers: 4, rate: 1.4 },
+                { name: 'Faraaz Arif', leads: 189, customers: 3, rate: 1.6 },
+                { name: 'Mariam Rahouli', leads: 365, customers: 2, rate: 0.5 }
+            ];
+
+            const conversionFunnel = [
+                { name: 'NEW', value: 35, fill: brandColors.primary },
+                { name: 'ATTEMPT', value: 2563, fill: brandColors.secondary },
+                { name: 'CONTACTED', value: 1253, fill: brandColors.accent },
+                { name: 'OPTIONS SENT', value: 667, fill: brandColors.gold },
+                { name: 'CUSTOMER', value: 133, fill: brandColors.lightGold }
+            ];
+
+            const stageDistribution = [
+                { name: 'Unsuccessful', value: 9897, fill: brandColors.darkBurgundy },
+                { name: 'Junk Lead', value: 5937, fill: brandColors.primary },
+                { name: 'Attempt', value: 2563, fill: brandColors.secondary },
+                { name: 'Contacted', value: 1253, fill: brandColors.accent },
+                { name: 'Options Sent', value: 667, fill: brandColors.gold },
+                { name: 'Idle', value: 265, fill: '#8B4513' },
+                { name: 'Customer', value: 133, fill: brandColors.lightGold },
+                { name: 'Hot', value: 44, fill: '#FF6B35' },
+                { name: 'New', value: 35, fill: '#4A90E2' }
+            ];
+
+            const MetricCard = ({ title, value, subtitle, icon: Icon, trend, variant = "primary" }) => {
+                const getVariantClasses = (variant) => {
+                    switch (variant) {
+                        case 'gold':
+                            return {
+                                border: 'border-l-4 border-yellow-500',
+                                bg: 'bg-gradient-to-br from-yellow-50 to-amber-50',
+                                text: 'text-yellow-600',
+                                iconBg: 'bg-yellow-100',
+                                iconText: 'text-yellow-600'
+                            };
+                        case 'secondary':
+                            return {
+                                border: 'border-l-4 border-red-600',
+                                bg: 'bg-gradient-to-br from-red-50 to-rose-50',
+                                text: 'text-red-600',
+                                iconBg: 'bg-red-100',
+                                iconText: 'text-red-600'
+                            };
+                        default:
+                            return {
+                                border: 'border-l-4',
+                                bg: 'bg-gradient-to-br from-red-50 to-pink-50',
+                                text: 'text-red-800',
+                                iconBg: 'bg-red-100',
+                                iconText: 'text-red-800'
+                            };
+                    }
+                };
+
+                const classes = getVariantClasses(variant);
+
+                return (
+                    <div 
+                        className={`metric-card bg-white rounded-xl shadow-lg p-6 ${classes.border} ${classes.bg} transform transition-all duration-300 hover:shadow-xl fade-in-up`}
+                        style={{ borderLeftColor: variant === 'gold' ? brandColors.gold : brandColors.primary }}
+                    >
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{title}</p>
+                                <p 
+                                    className="text-3xl font-bold font-mono"
+                                    style={{ color: variant === 'gold' ? brandColors.gold : brandColors.primary }}
+                                >
+                                    {value}
+                                </p>
+                                <p className="text-sm text-gray-500 mt-1">{subtitle}</p>
+                            </div>
+                            <div 
+                                className="p-3 rounded-full"
+                                style={{ backgroundColor: variant === 'gold' ? '#FEF3C7' : '#FECACA' }}
+                            >
+                                <Icon 
+                                    className="h-8 w-8"
+                                    style={{ color: variant === 'gold' ? brandColors.gold : brandColors.primary }}
+                                />
+                            </div>
+                        </div>
+                        {trend && (
+                            <div className="flex items-center mt-4">
+                                {trend > 0 ? (
+                                    <TrendingUp className="h-4 w-4 text-green-500 mr-1" />
+                                ) : (
+                                    <TrendingDown className="h-4 w-4 text-red-500 mr-1" />
+                                )}
+                                <span className={`text-sm font-medium ${trend > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                    {Math.abs(trend)}% vs last period
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                );
+            };
+
+            if (!isLoaded) {
+                return (
+                    <div 
+                        className="min-h-screen flex items-center justify-center"
+                        style={{ 
+                            background: `linear-gradient(135deg, ${brandColors.offWhite} 0%, #FDF2F8 50%, #FEF7F0 100%)` 
+                        }}
+                    >
+                        <div className="text-center">
+                            <div className="spinner mb-4"></div>
+                            <h2 className="text-2xl font-bold montserrat" style={{ color: brandColors.primary }}>
+                                Loading Executive Dashboard...
+                            </h2>
+                            <p className="text-gray-600 mt-2">Preparing your analytics insights</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div 
+                    className="min-h-screen p-8"
+                    style={{ 
+                        background: `linear-gradient(135deg, ${brandColors.offWhite} 0%, #FDF2F8 50%, #FEF7F0 100%)` 
+                    }}
+                >
+                    <div className="max-w-7xl mx-auto">
+                        {/* Header with OSUS styling */}
+                        <div className="text-center mb-8 relative fade-in-up">
+                            <div 
+                                className="absolute inset-0 opacity-10"
+                                style={{ 
+                                    background: `radial-gradient(circle at center, ${brandColors.primary} 0%, transparent 70%)` 
+                                }}
+                            ></div>
+                            <div className="relative z-10">
+                                <h1 
+                                    className="text-5xl font-bold text-gray-900 mb-2 montserrat"
+                                    style={{ 
+                                        background: `linear-gradient(135deg, ${brandColors.primary} 0%, ${brandColors.secondary} 50%, ${brandColors.gold} 100%)`,
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent'
+                                    }}
+                                >
+                                    LEAD MANAGEMENT
+                                </h1>
+                                <h2 className="text-3xl font-semibold montserrat" style={{ color: brandColors.accent }}>
+                                    Executive Summary
+                                </h2>
+                                <div className="w-24 h-1 mx-auto mt-4 rounded-full" style={{ backgroundColor: brandColors.gold }}></div>
+                                <p className="text-lg text-gray-600 mt-4 font-medium">Comprehensive Analysis • {keyMetrics.timeframe}</p>
+                            </div>
+                        </div>
+
+                        {/* Key Metrics Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <MetricCard
+                                title="Total Leads Generated"
+                                value={keyMetrics.totalLeads.toLocaleString()}
+                                subtitle="Across all channels"
+                                icon={Users}
+                                variant="primary"
+                            />
+                            <MetricCard
+                                title="Customers Acquired"
+                                value={keyMetrics.customers}
+                                subtitle="Successful conversions"
+                                icon={Target}
+                                variant="gold"
+                            />
+                            <MetricCard
+                                title="Conversion Rate"
+                                value={`${keyMetrics.conversionRate}%`}
+                                subtitle="Overall performance"
+                                icon={Award}
+                                variant="secondary"
+                            />
+                            <MetricCard
+                                title="Active Team Members"
+                                value="42"
+                                subtitle="Sales professionals"
+                                icon={Users}
+                                variant="primary"
+                            />
+                        </div>
+
+                        {/* Navigation Tabs */}
+                        <div 
+                            className="flex flex-wrap bg-white rounded-xl shadow-lg mb-8 p-2 border fade-in-up"
+                            style={{ borderColor: brandColors.primary }}
+                        >
+                            {[
+                                { id: 'overview', label: 'Overview' },
+                                { id: 'sources', label: 'Lead Sources' },
+                                { id: 'performance', label: 'Team Performance' },
+                                { id: 'insights', label: 'Key Insights' }
+                            ].map(tab => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`px-8 py-4 rounded-lg font-semibold transition-all duration-300 flex-1 text-center ${
+                                        activeTab === tab.id
+                                            ? 'text-white shadow-lg transform scale-105'
+                                            : 'text-gray-600 hover:text-white hover:shadow-md'
+                                    }`}
+                                    style={{ 
+                                        backgroundColor: activeTab === tab.id ? brandColors.primary : 'transparent'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (activeTab !== tab.id) {
+                                            e.target.style.backgroundColor = brandColors.accent;
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (activeTab !== tab.id) {
+                                            e.target.style.backgroundColor = 'transparent';
+                                        }
+                                    }}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Tab Content */}
+                        {activeTab === 'overview' && (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 fade-in-up">
+                                {/* Lead Stage Distribution */}
+                                <div 
+                                    className="bg-white rounded-xl shadow-lg p-6 border-t-4"
+                                    style={{ borderTopColor: brandColors.primary }}
+                                >
+                                    <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>
+                                        Lead Stage Distribution
+                                    </h3>
+                                    <ResponsiveContainer width="100%" height={300}>
+                                        <PieChart>
+                                            <Pie
+                                                data={stageDistribution}
+                                                cx="50%"
+                                                cy="50%"
+                                                outerRadius={100}
+                                                dataKey="value"
+                                                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                                            >
+                                                {stageDistribution.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip formatter={(value) => [value.toLocaleString(), 'Leads']} />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
+
+                                {/* Conversion Funnel */}
+                                <div 
+                                    className="bg-white rounded-xl shadow-lg p-6 border-t-4"
+                                    style={{ borderTopColor: brandColors.gold }}
+                                >
+                                    <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>
+                                        Conversion Funnel
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {conversionFunnel.map((stage, index) => {
+                                            const percentage = index === 0 ? 100 : (stage.value / conversionFunnel[0].value * 100);
+                                            return (
+                                                <div key={stage.name} className="relative">
+                                                    <div className="flex justify-between items-center mb-2">
+                                                        <span className="font-semibold text-gray-700">{stage.name}</span>
+                                                        <span 
+                                                            className="text-sm font-medium"
+                                                            style={{ color: brandColors.primary }}
+                                                        >
+                                                            {stage.value.toLocaleString()}
+                                                        </span>
+                                                    </div>
+                                                    <div className="w-full bg-gray-200 rounded-full h-4 shadow-inner">
+                                                        <div
+                                                            className="h-4 rounded-full transition-all duration-1000 shadow-sm"
+                                                            style={{
+                                                                width: `${percentage}%`,
+                                                                backgroundColor: stage.fill
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div 
+                                                        className="text-xs font-medium mt-1"
+                                                        style={{ color: brandColors.secondary }}
+                                                    >
+                                                        {percentage.toFixed(1)}%
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'sources' && (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 fade-in-up">
+                                {/* Source Performance Chart */}
+                                <div 
+                                    className="bg-white rounded-xl shadow-lg p-6 border-t-4"
+                                    style={{ borderTopColor: brandColors.primary }}
+                                >
+                                    <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>
+                                        Lead Sources by Volume
+                                    </h3>
+                                    <ResponsiveContainer width="100%" height={400}>
+                                        <BarChart data={sourceData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                                            <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+                                            <YAxis />
+                                            <Tooltip formatter={(value) => [value.toLocaleString(), 'Leads']} />
+                                            <Bar dataKey="leads" fill={brandColors.primary} radius={[4, 4, 0, 0]} />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+
+                                {/* Source Conversion Rates */}
+                                <div 
+                                    className="bg-white rounded-xl shadow-lg p-6 border-t-4"
+                                    style={{ borderTopColor: brandColors.gold }}
+                                >
+                                    <h3 className="text-xl font-bold mb-4" style={{ color: brandColors.primary }}>
+                                        Conversion Rate by Source
+                                    </h3>
+                                    <ResponsiveContainer width="100%" height={400}>
+                                        <BarChart data={sourceData.filter(s => s.rate > 0)} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                                            <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+                                            <YAxis />
+                                            <Tooltip formatter={(value) => [`${value}%`, 'Conversion Rate']} />
+                                            <Bar dataKey="rate" fill={brandColors.gold} radius={[4, 4, 0, 0]} />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'performance' && (
+                            <div 
+                                className="bg-white rounded-xl shadow-lg p-6 border-t-4 fade-in-up"
+                                style={{ borderTopColor: brandColors.primary }}
+                            >
+                                <h3 className="text-xl font-bold mb-6" style={{ color: brandColors.primary }}>
+                                    Top Performers Analysis
+                                </h3>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    {/* Performance by Volume */}
+                                    <div>
+                                        <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.secondary }}>
+                                            Leads Handled
+                                        </h4>
+                                        <ResponsiveContainer width="100%" height={350}>
+                                            <BarChart data={topPerformers} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                                                <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+                                                <YAxis />
+                                                <Tooltip formatter={(value) => [value.toLocaleString(), 'Leads']} />
+                                                <Bar dataKey="leads" fill={brandColors.primary} radius={[4, 4, 0, 0]} />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    {/* Performance by Conversion Rate */}
+                                    <div>
+                                        <h4 className="text-lg font-semibold mb-4" style={{ color: brandColors.secondary }}>
+                                            Conversion Rates
+                                        </h4>
+                                        <ResponsiveContainer width="100%" height={350}>
+                                            <BarChart data={topPerformers} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                                                <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} />
+                                                <YAxis />
+                                                <Tooltip formatter={(value) => [`${value}%`, 'Conversion Rate']} />
+                                                <Bar dataKey="rate" fill={brandColors.gold} radius={[4, 4, 0, 0]} />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'insights' && (
+                            <div className="space-y-8 fade-in-up">
+                                {/* Key Insights */}
+                                <div 
+                                    className="bg-white rounded-xl shadow-lg p-6 border-t-4"
+                                    style={{ borderTopColor: brandColors.primary }}
+                                >
+                                    <h3 className="text-xl font-bold mb-6" style={{ color: brandColors.primary }}>
+                                        📊 Executive Insights & Recommendations
+                                    </h3>
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {/* Peak Performance */}
+                                        <div 
+                                            className="border-l-4 p-4 rounded-lg shadow-sm"
+                                            style={{ 
+                                                borderLeftColor: brandColors.gold,
+                                                backgroundColor: '#FFF9E6'
+                                            }}
+                                        >
+                                            <div className="flex items-center mb-2">
+                                                <TrendingUp className="h-5 w-5 mr-2" style={{ color: brandColors.gold }} />
+                                                <h4 className="font-semibold" style={{ color: brandColors.primary }}>Peak Performance</h4>
+                                            </div>
+                                            <p className="text-sm" style={{ color: brandColors.darkBurgundy }}>
+                                                <strong>Khaoula Boutouil</strong> achieves the highest conversion rate at 3.3%, 
+                                                significantly outperforming the average of 0.64%.
+                                            </p>
+                                        </div>
+
+                                        {/* Volume Leaders */}
+                                        <div 
+                                            className="border-l-4 p-4 rounded-lg shadow-sm"
+                                            style={{ 
+                                                borderLeftColor: brandColors.secondary,
+                                                backgroundColor: '#FFF5F5'
+                                            }}
+                                        >
+                                            <div className="flex items-center mb-2">
+                                                <Users className="h-5 w-5 mr-2" style={{ color: brandColors.secondary }} />
+                                                <h4 className="font-semibold" style={{ color: brandColors.primary }}>Volume Champions</h4>
+                                            </div>
+                                            <p className="text-sm" style={{ color: brandColors.darkBurgundy }}>
+                                                <strong>Facebook</strong> generates 50.5% of all leads (10,511), 
+                                                followed by Instagram at 33% (6,863 leads).
+                                            </p>
+                                        </div>
+
+                                        {/* Conversion Gaps */}
+                                        <div 
+                                            className="border-l-4 p-4 rounded-lg shadow-sm"
+                                            style={{ 
+                                                borderLeftColor: brandColors.primary,
+                                                backgroundColor: '#FFF0F0'
+                                            }}
+                                        >
+                                            <div className="flex items-center mb-2">
+                                                <AlertTriangle className="h-5 w-5 mr-2" style={{ color: brandColors.primary }} />
+                                                <h4 className="font-semibold" style={{ color: brandColors.primary }}>Opportunity Gap</h4>
+                                            </div>
+                                            <p className="text-sm" style={{ color: brandColors.darkBurgundy }}>
+                                                47.6% of leads are marked as "Unsuccessful" - this represents 
+                                                significant untapped potential worth investigating.
+                                            </p>
+                                        </div>
+
+                                        {/* Quality Sources */}
+                                        <div 
+                                            className="border-l-4 p-4 rounded-lg shadow-sm"
+                                            style={{ 
+                                                borderLeftColor: brandColors.accent,
+                                                backgroundColor: '#FFF8F8'
+                                            }}
+                                        >
+                                            <div className="flex items-center mb-2">
+                                                <Target className="h-5 w-5 mr-2" style={{ color: brandColors.accent }} />
+                                                <h4 className="font-semibold" style={{ color: brandColors.primary }}>Quality Focus</h4>
+                                            </div>
+                                            <p className="text-sm" style={{ color: brandColors.darkBurgundy }}>
+                                                WhatsApp shows superior conversion quality (0.31%) despite 
+                                                lower volume, indicating high-intent prospects.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* ROI Impact Projections */}
+                                <div 
+                                    className="rounded-xl shadow-lg p-6 text-white relative overflow-hidden"
+                                    style={{ 
+                                        background: `linear-gradient(135deg, ${brandColors.primary} 0%, ${brandColors.secondary} 50%, ${brandColors.darkBurgundy} 100%)`
+                                    }}
+                                >
+                                    <div 
+                                        className="absolute inset-0 opacity-10"
+                                        style={{ 
+                                            backgroundImage: `radial-gradient(circle at 25% 25%, ${brandColors.gold}22 0%, transparent 50%), radial-gradient(circle at 75% 75%, ${brandColors.gold}22 0%, transparent 50%)`
+                                        }}
+                                    ></div>
+                                    
+                                    <div className="relative z-10">
+                                        <h3 className="text-xl font-bold mb-6">💰 Projected ROI Impact</h3>
+                                        
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <div className="glass rounded-lg p-4">
+                                                <h4 className="font-semibold mb-2">Scenario 1: Best Practice Scale</h4>
+                                                <p className="text-sm opacity-90">
+                                                    If team average reaches 2% conversion rate: 
+                                                    <span 
+                                                        className="block font-bold text-lg mt-1"
+                                                        style={{ color: brandColors.lightGold }}
+                                                    >
+                                                        +283 customers
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            
+                                            <div className="glass rounded-lg p-4">
+                                                <h4 className="font-semibold mb-2">Scenario 2: Lead Quality Focus</h4>
+                                                <p className="text-sm opacity-90">
+                                                    Reducing junk leads by 50%: 
+                                                    <span 
+                                                        className="block font-bold text-lg mt-1"
+                                                        style={{ color: brandColors.lightGold }}
+                                                    >
+                                                        +15% efficiency
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            
+                                            <div className="glass rounded-lg p-4">
+                                                <h4 className="font-semibold mb-2">Scenario 3: Channel Optimization</h4>
+                                                <p className="text-sm opacity-90">
+                                                    Doubling WhatsApp leads: 
+                                                    <span 
+                                                        className="block font-bold text-lg mt-1"
+                                                        style={{ color: brandColors.lightGold }}
+                                                    >
+                                                        +4 customers
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Footer Summary */}
+                        <div 
+                            className="mt-12 rounded-xl shadow-2xl p-8 text-white relative overflow-hidden fade-in-up"
+                            style={{ 
+                                background: `linear-gradient(135deg, ${brandColors.darkBurgundy} 0%, ${brandColors.primary} 50%, ${brandColors.secondary} 100%)`
+                            }}
+                        >
+                            <div 
+                                className="absolute inset-0 opacity-10"
+                                style={{
+                                    backgroundImage: `radial-gradient(circle at 25% 25%, ${brandColors.gold}22 0%, transparent 50%), radial-gradient(circle at 75% 75%, ${brandColors.gold}22 0%, transparent 50%)`
+                                }}
+                            ></div>
+                            
+                            <div className="relative z-10 text-center">
+                                <div 
+                                    className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+                                    style={{ backgroundColor: brandColors.gold }}
+                                >
+                                    <Target className="w-8 h-8" style={{ color: brandColors.primary }} />
+                                </div>
+                                
+                                <h3 
+                                    className="text-3xl font-bold mb-4 montserrat"
+                                >
+                                    🎯 EXECUTIVE SUMMARY
+                                </h3>
+                                
+                                <div 
+                                    className="w-32 h-1 mx-auto mb-6 rounded-full"
+                                    style={{ backgroundColor: brandColors.gold }}
+                                ></div>
+                                
+                                <p 
+                                    className="text-lg opacity-95 max-w-4xl mx-auto leading-relaxed mb-8 montserrat"
+                                >
+                                    With <span className="font-bold" style={{ color: brandColors.lightGold }}>20,794 leads</span> generating <span className="font-bold" style={{ color: brandColors.lightGold }}>133 customers</span> (0.64% conversion), our analysis reveals significant optimization opportunities. 
+                                    By scaling best practices from top performers like <span className="font-bold" style={{ color: brandColors.lightGold }}>Khaoula Boutouil</span> (3.3% conversion) and focusing on high-quality channels like WhatsApp, 
+                                    we project potential for <span className="font-bold text-2xl" style={{ color: brandColors.gold }}>200%+ improvement</span> in conversion rates and substantial ROI gains.
+                                </p>
+                                
+                                <div className="flex justify-center items-center space-x-12 flex-wrap gap-4">
+                                    <div className="text-center p-4 rounded-lg glass">
+                                        <div 
+                                            className="text-4xl font-bold mb-2 montserrat"
+                                            style={{ color: brandColors.lightGold }}
+                                        >
+                                            283+
+                                        </div>
+                                        <div className="text-sm opacity-90 font-medium">Potential Additional Customers</div>
+                                    </div>
+                                    <div className="text-center p-4 rounded-lg glass">
+                                        <div 
+                                            className="text-4xl font-bold mb-2 montserrat"
+                                            style={{ color: brandColors.lightGold }}
+                                        >
+                                            2.0%
+                                        </div>
+                                        <div className="text-sm opacity-90 font-medium">Target Conversion Rate</div>
+                                    </div>
+                                    <div className="text-center p-4 rounded-lg glass">
+                                        <div 
+                                            className="text-4xl font-bold mb-2 montserrat"
+                                            style={{ color: brandColors.lightGold }}
+                                        >
+                                            15%
+                                        </div>
+                                        <div className="text-sm opacity-90 font-medium">Efficiency Improvement</div>
+                                    </div>
+                                </div>
+                                
+                                {/* Decorative element */}
+                                <div className="mt-8 flex justify-center">
+                                    <div 
+                                        className="w-24 h-1 rounded-full"
+                                        style={{ 
+                                            background: `linear-gradient(90deg, ${brandColors.gold} 0%, ${brandColors.lightGold} 50%, ${brandColors.gold} 100%)`
+                                        }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Brand attribution */}
+                        <div className="text-center mt-6 fade-in-up">
+                            <p 
+                                className="text-sm opacity-60 montserrat"
+                                style={{ color: brandColors.primary }}
+                            >
+                                Powered by OSUS Properties • Executive Analytics Suite
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(<ExecutiveSummary />, document.getElementById('root'));
+    </script>
+</body>
+</html>
