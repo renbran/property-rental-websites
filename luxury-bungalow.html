@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Bungalow Rental | Victors Subdivision Cagayan de Oro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(0, 191, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+            33% { transform: translate(20px, -20px) rotate(120deg); }
+            66% { transform: translate(-15px, 15px) rotate(240deg); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #FFD700, #00BFFF, #FFFFFF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            animation: pulse 2s infinite;
+            margin-bottom: 2rem;
+        }
+
+        .header-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .cta-primary, .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-primary {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(20px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .cta-primary::before, .cta-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-primary:hover::before, .cta-secondary:hover::before {
+            left: 100%;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); }
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(0, 191, 255, 0.5)); }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        /* Property Details */
+        .property-details {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-details::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #FFD700, #00BFFF);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .detail-card h3 {
+            font-size: 1.1rem;
+            color: #00BFFF;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .detail-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .amenities {
+            margin-top: 30px;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .amenity-tag {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(0, 191, 255, 0.2));
+            padding: 12px 20px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: 500;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .amenity-tag:hover {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.3), rgba(0, 191, 255, 0.3));
+            transform: scale(1.05);
+        }
+
+        /* Lead Form */
+        .lead-form {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Floor Plan Section */
+        .floor-plan {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Property Gallery Section */
+        .property-gallery {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .property-gallery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #FFD700, #00BFFF);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 250px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 25px;
+            color: white;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .gallery-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Location & Map Section */
+        .location-map {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-map::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #FFD700, #00BFFF);
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            align-items: start;
+        }
+
+        .map-wrapper {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 15px;
+            filter: grayscale(20%) contrast(1.2);
+            transition: all 0.3s ease;
+        }
+
+        .map-wrapper:hover iframe {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .map-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .location-details {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .location-details h3 {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .location-details p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .map-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .map-btn.primary {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .map-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .map-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .map-btn.secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .nearby-places {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nearby-places h4 {
+            color: #FFD700;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .nearby-places ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nearby-places li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .nearby-places li:last-child {
+            border-bottom: none;
+        }
+
+        .distance {
+            background: rgba(0, 191, 255, 0.2);
+            color: #00BFFF;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .floor-plan-image {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed rgba(255, 215, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        .floor-plan-specs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .spec-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .spec-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFD700;
+            display: block;
+        }
+
+        .spec-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(0, 191, 255, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: #FFD700;
+            min-width: 80px;
+            font-size: 0.9rem;
+        }
+
+        .contact-value {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .lead-form {
+                position: static;
+                margin-top: 30px;
+            }
+            
+            .header {
+                padding: 40px 20px 30px;
+            }
+            
+            .header-cta {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cta-primary, .cta-secondary {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+                padding: 18px 30px;
+                font-size: 1rem;
+            }
+            
+            .property-details,
+            .lead-form,
+            .floor-plan,
+            .property-gallery,
+            .location-map {
+                padding: 25px;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-item {
+                height: 220px;
+            }
+
+            .gallery-item:hover {
+                transform: none;
+            }
+
+            .gallery-item:hover img {
+                transform: none;
+            }
+
+            .gallery-overlay {
+                transform: translateY(0);
+                background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            }
+
+            .cta-primary:hover, .cta-secondary:hover {
+                transform: none;
+            }
+
+            .map-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .map-wrapper iframe {
+                height: 300px;
+            }
+
+            .map-actions {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .map-btn {
+                font-size: 0.9rem;
+                padding: 12px 16px;
+            }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            animation: rise 12s infinite linear;
+        }
+
+        @keyframes rise {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Exclusive Bungalow Rental</h1>
+        <p class="subtitle">Victors Subdivision, Block 5 Lot 23 Phase 2 • Cagayan de Oro City</p>
+        <div class="price-tag">AED 12,000/Month</div>
+        
+        <div class="header-cta">
+            <a href="#leadForm" class="cta-primary">Schedule Viewing</a>
+            <a href="mailto:info@tachimao.com?subject=Property Viewing Request - Exclusive Bungalow&body=Hi, I'm interested in viewing the exclusive bungalow rental at Victors Subdivision. Please contact me to arrange a viewing.%0D%0A%0D%0AProperty: Exclusive Bungalow Rental%0D%0ALocation: Block 5 Lot 23 Phase 2, Victors Subdivision, Cagayan de Oro%0D%0APrice: AED 12,000/Month%0D%0A%0D%0AName: %0D%0APhone: %0D%0APreferred Viewing Time: %0D%0A%0D%0AThank you!" class="cta-secondary">Email Direct</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="property-grid">
+            <!-- Property Details -->
+            <div class="property-details">
+                <h2 class="section-title">Property Specifications</h2>
+                
+                <div class="detail-grid">
+                    <div class="detail-card">
+                        <h3>Property Type</h3>
+                        <p>Residential Bungalow</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Configuration</h3>
+                        <p>1BHK (1 Bedroom, 1 Hall, 1 Kitchen)</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Total Area</h3>
+                        <p>80 SQM</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Usable Area</h3>
+                        <p>80 SQM</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Parking</h3>
+                        <p>1 Car Parking Space</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Facing</h3>
+                        <p>North Direction</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Bathrooms</h3>
+                        <p>1 Complete Washroom</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Property Code</h3>
+                        <p>0001</p>
+                    </div>
+                </div>
+
+                <div class="amenities">
+                    <h3 class="section-title">Premium Amenities</h3>
+                    <div class="amenities-grid">
+                        <div class="amenity-tag">🏀 Basketball Court</div>
+                        <div class="amenity-tag">🎮 Playing Area</div>
+                        <div class="amenity-tag">🔥 Barbecue Area</div>
+                        <div class="amenity-tag">🌿 Green Spaces</div>
+                    </div>
+                </div>
+
+                <div class="contact-info">
+                    <h3 style="color: #FFD700; margin-bottom: 15px; font-size: 1.2rem;">Landlord Contact</h3>
+                    <div class="contact-item">
+                        <span class="contact-label">Owner:</span>
+                        <span class="contact-value">Renbran Anthony Madelo & Kathrina Pajo</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Phone:</span>
+                        <span class="contact-value">+971 56 390 5772</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Email:</span>
+                        <span class="contact-value">renbranmadelo@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lead Generation Form -->
+            <div class="lead-form">
+                <h2 class="form-title">Schedule Your Visit</h2>
+                <p class="form-subtitle">Fill out the form below and we'll contact you within 24 hours</p>
+                
+                <form id="leadForm" action="https://formsubmit.co/info@tachimao.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="Property Viewing Request - Exclusive Bungalow Rental">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://your-website.com/thank-you.html">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="moveDate">Preferred Move-in Date</label>
+                        <input type="date" id="moveDate" name="move_date">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Interest Level</label>
+                        <select id="interest" name="interest_level">
+                            <option value="">Select Interest Level</option>
+                            <option value="immediate">Immediate (Within 1 week)</option>
+                            <option value="soon">Soon (Within 1 month)</option>
+                            <option value="planning">Planning (1-3 months)</option>
+                            <option value="exploring">Just Exploring</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Additional Requirements</label>
+                        <textarea id="message" name="message" placeholder="Any specific requirements or questions..."></textarea>
+                    </div>
+                    
+                    <!-- Hidden field for property details -->
+                    <input type="hidden" name="property" value="Exclusive Bungalow Rental - Victors Subdivision, Block 5 Lot 23 Phase 2, Cagayan de Oro City">
+                    <input type="hidden" name="price" value="AED 12,000/Month">
+                    
+                    <button type="submit" class="submit-btn">Request Property Visit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Property Gallery Section -->
+        <div class="property-gallery">
+            <h2 class="section-title">Property Gallery</h2>
+            <p class="gallery-description">
+                Explore every corner of your future home through our comprehensive photo collection
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/G32wq1vf/living-room.jpg" alt="Living Room">
+                    <div class="gallery-overlay">
+                        <h3>Living Room</h3>
+                        <p>Spacious open-concept living area with modern design</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/hSxDNj7/MBR.jpg" alt="Master Bedroom">
+                    <div class="gallery-overlay">
+                        <h3>Master Bedroom</h3>
+                        <p>Comfortable bedroom with ample natural light</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/qYg2jnkQ/main-washroom.jpg" alt="Main Washroom">
+                    <div class="gallery-overlay">
+                        <h3>Main Washroom</h3>
+                        <p>Modern bathroom with contemporary fixtures</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/hRs2nvx6/Front-main-view.jpg" alt="Front Main View">
+                    <div class="gallery-overlay">
+                        <h3>Front Exterior</h3>
+                        <p>Beautiful front view of the bungalow</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/ZppLhxzy/front-main-2.jpg" alt="Front Main Alternative">
+                    <div class="gallery-overlay">
+                        <h3>Main Entrance</h3>
+                        <p>Welcoming entrance with modern appeal</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/39XR53sz/Entrance-2-back-side.jpg" alt="Secondary Entrance">
+                    <div class="gallery-overlay">
+                        <h3>Back Entrance</h3>
+                        <p>Additional access point for convenience</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/8ndhf1kw/MBR-Access.jpg" alt="Access to Master Bedroom">
+                    <div class="gallery-overlay">
+                        <h3>Bedroom Access</h3>
+                        <p>Hallway leading to the private bedroom</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://i.ibb.co/svS85SSf/side-from-main.jpg" alt="Side View">
+                    <div class="gallery-overlay">
+                        <h3>Side View</h3>
+                        <p>Architectural design and landscaping</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location & Map Section -->
+        <div class="location-map">
+            <h2 class="section-title">Property Location</h2>
+            <p class="gallery-description">
+                Explore the exact location and surrounding area of your future home
+            </p>
+            
+            <div class="map-container">
+                <div class="map-wrapper">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.123456789!2d124.123456789!3d8.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMDcnMjQuNCJOIDEyNMKwMDcnMjQuNCJF!5e0!3m2!1sen!2sph!4v1234567890123!5m2!1sen!2sph"
+                        width="100%" 
+                        height="400" 
+                        frameborder="0"
+                        title="Property Location Map - Victors Subdivision, Cagayan de Oro"
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                
+                <div class="map-info">
+                    <div class="location-details">
+                        <h3>📍 Exact Address</h3>
+                        <p>Block 5 Lot 23 Phase 2<br>Victors Subdivision<br>Cagayan de Oro City, Philippines</p>
+                    </div>
+                    
+                    <div class="map-actions">
+                        <a href="https://maps.app.goo.gl/penfwTxr8WzG7oa7A" target="_blank" rel="noopener noreferrer" class="map-btn primary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Open in Google Maps
+                        </a>
+                        <a href="https://maps.app.goo.gl/penfwTxr8WzG7oa7A" target="_blank" rel="noopener noreferrer" class="map-btn secondary">
+                            <i class="fas fa-directions"></i>
+                            Get Directions
+                        </a>
+                    </div>
+                    
+                    <div class="nearby-places">
+                        <h4>🏢 Nearby Landmarks</h4>
+                        <ul>
+                            <li><span class="distance">5 min</span> SM City Cagayan de Oro</li>
+                            <li><span class="distance">8 min</span> Northern Mindanao Medical Center</li>
+                            <li><span class="distance">12 min</span> Xavier University</li>
+                            <li><span class="distance">25 min</span> Lumbia Airport</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floor Plan Section -->
+        <div class="floor-plan">
+            <h2 class="section-title">Floor Plan & Layout</h2>
+            <div class="floor-plan-image">
+                <h3 style="color: #FFD700; margin-bottom: 15px;">JAMES UNIT - BUNGALOW (SEMI BARE)</h3>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
+                    Features: Living Room, Bedroom, Kitchen, Dining Area, Laundry Area, Parking, Green Entry
+                </p>
+                <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 10px; border: 1px dashed rgba(255,215,0,0.3);">
+                    <p style="color: rgba(255,255,255,0.6); font-style: italic;">
+                        📐 Detailed floor plan available upon request<br>
+                        📋 Complete specifications and measurements provided during viewing
+                    </p>
+                </div>
+            </div>
+            
+            <div class="floor-plan-specs">
+                <div class="spec-item">
+                    <span class="spec-number">80</span>
+                    <span class="spec-label">SQM Lot Area</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-number">35</span>
+                    <span class="spec-label">SQM Floor Area</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-number">1</span>
+                    <span class="spec-label">Bedroom</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-number">1</span>
+                    <span class="spec-label">Bathroom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.width = particle.style.height = Math.random() * 8 + 3 + 'px';
+            particle.style.animationDuration = Math.random() * 4 + 3 + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 7000);
+        }
+
+        // Generate particles
+        setInterval(createParticle, 500);
+
+        // Form handling with email integration
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            // Get form data for validation
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Client-side validation
+            if (!data.name || !data.email || !data.phone) {
+                e.preventDefault();
+                alert('Please fill in all required fields (Name, Email, and Phone).');
+                return false;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                e.preventDefault();
+                alert('Please enter a valid email address.');
+                return false;
+            }
+            
+            // Phone validation
+            const phoneRegex = /^[\+]?[0-9\s\-\(\)]{7,}$/;
+            if (!phoneRegex.test(data.phone)) {
+                e.preventDefault();
+                alert('Please enter a valid phone number.');
+                return false;
+            }
+            
+            // Show submitting state
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending Request...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            
+            // Form will submit naturally to FormSubmit.co
+            // The user will be redirected or see a success message from FormSubmit
+            
+            // Optional: Add a slight delay to show the "sending" state
+            setTimeout(() => {
+                // This won't execute if form submits successfully,
+                // but provides fallback if something goes wrong
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }, 5000);
+        });
+
+        // Add entrance animations
+        window.addEventListener('load', () => {
+            const elements = document.querySelectorAll('.detail-card, .amenity-tag, .gallery-item');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Gallery lightbox functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    const title = this.querySelector('h3').textContent;
+                    const description = this.querySelector('p').textContent;
+                    
+                    // Create lightbox
+                    const lightbox = document.createElement('div');
+                    lightbox.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.95);
+                        z-index: 9999;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    `;
+                    
+                    const lightboxContent = document.createElement('div');
+                    lightboxContent.style.cssText = `
+                        max-width: 90%;
+                        max-height: 90%;
+                        text-align: center;
+                        cursor: default;
+                    `;
+                    
+                    const lightboxImg = document.createElement('img');
+                    lightboxImg.src = img.src;
+                    lightboxImg.style.cssText = `
+                        max-width: 100%;
+                        max-height: 80vh;
+                        border-radius: 15px;
+                        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                        margin-bottom: 20px;
+                    `;
+                    
+                    const lightboxTitle = document.createElement('h3');
+                    lightboxTitle.textContent = title;
+                    lightboxTitle.style.cssText = `
+                        color: #FFD700;
+                        font-size: 1.5rem;
+                        margin-bottom: 10px;
+                        font-weight: 600;
+                    `;
+                    
+                    const lightboxDesc = document.createElement('p');
+                    lightboxDesc.textContent = description;
+                    lightboxDesc.style.cssText = `
+                        color: rgba(255,255,255,0.8);
+                        font-size: 1rem;
+                        max-width: 400px;
+                        margin: 0 auto;
+                    `;
+                    
+                    const closeBtn = document.createElement('div');
+                    closeBtn.innerHTML = '×';
+                    closeBtn.style.cssText = `
+                        position: absolute;
+                        top: 30px;
+                        right: 30px;
+                        color: white;
+                        font-size: 40px;
+                        cursor: pointer;
+                        width: 50px;
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: rgba(0,0,0,0.5);
+                        border-radius: 50%;
+                        transition: all 0.3s ease;
+                    `;
+                    
+                    lightboxContent.appendChild(lightboxImg);
+                    lightboxContent.appendChild(lightboxTitle);
+                    lightboxContent.appendChild(lightboxDesc);
+                    lightbox.appendChild(lightboxContent);
+                    lightbox.appendChild(closeBtn);
+                    
+                    document.body.appendChild(lightbox);
+                    
+                    // Show lightbox
+                    setTimeout(() => {
+                        lightbox.style.opacity = '1';
+                    }, 10);
+                    
+                    // Close lightbox handlers
+                    function closeLightbox() {
+                        lightbox.style.opacity = '0';
+                        setTimeout(() => {
+                            document.body.removeChild(lightbox);
+                        }, 300);
+                    }
+                    
+                    lightbox.addEventListener('click', function(e) {
+                        if (e.target === lightbox) {
+                            closeLightbox();
+                        }
+                    });
+                    
+                    closeBtn.addEventListener('click', closeLightbox);
+                    
+                    closeBtn.addEventListener('mouseenter', function() {
+                        this.style.background = 'rgba(255,215,0,0.8)';
+                        this.style.color = 'black';
+                    });
+                    
+                    closeBtn.addEventListener('mouseleave', function() {
+                        this.style.background = 'rgba(0,0,0,0.5)';
+                        this.style.color = 'white';
+                    });
+                    
+                    // Prevent clicks on content from closing lightbox
+                    lightboxContent.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
