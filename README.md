@@ -26,9 +26,9 @@ This repository contains professional property rental websites and business anal
 
 ## 🌐 Live Websites
 
-- **Main Page**: [Exclusive Bungalow](https://your-username.github.io/repository-name/)
-- **James Executive**: [James Executive Bungalow](https://your-username.github.io/repository-name/bungalow.html)
-- **Analytics Dashboard**: [Executive Summary Dashboard](https://your-username.github.io/repository-name/executive-summary-dashboard.html)
+- **Main Page**: [Exclusive Bungalow](https://renbran.github.io/property-rental-websites/)
+- **James Executive**: [James Executive Bungalow](https://renbran.github.io/property-rental-websites/bungalow.html)
+- **Analytics Dashboard**: [Executive Summary Dashboard](https://renbran.github.io/property-rental-websites/executive-summary-dashboard.html)
 
 ## ✨ Features
 
