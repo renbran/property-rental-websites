@@ -1,0 +1,27 @@
+title: Property Rental & Analytics Websites
+description: Professional property rental websites and analytics dashboard with OSUS branding
+baseurl: "/property-rental-websites"
+url: "https://renbran.github.io"
+
+# GitHub Pages settings
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .gitignore
+  - .github/
+
+# Include HTML files for processing
+include:
+  - "_*"
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+
+# Site settings
+theme: null
+remote_theme: null
