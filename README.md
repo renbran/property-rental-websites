@@ -1,62 +1,70 @@
-# Property Rental & Analytics Websites
+# OSUS Properties - Website Portfolio
 
-This repository contains professional property rental websites and business analytics dashboard:
+A comprehensive collection of property rental websites and business tools for OSUS Properties.
 
-## 🏡 Properties Available
+## 🌐 **Main Share Link Page**
+**[View All Websites & Links](https://renbran.github.io/property-rental-websites/index-links.html)**
 
-### 1. Exclusive Bungalow Rental (index.html)
+## � **Property Websites**
 
-- **Location**: Victors Subdivision, Block 5 Lot 23 Phase 2, Cagayan de Oro City
-- **Price**: AED 12,000/Month
-- **Type**: 1BHK Residential Bungalow
-- **Area**: 80 SQM
-- **Features**: Modern luxury design with lead generation forms
+### James Executive Bungalow
+- **Live Site:** https://renbran.github.io/property-rental-websites/bungalow.html
+- **Features:** Main property listing with gallery, contact forms, and WhatsApp integration
+- **Price:** ₱12,500/Month
+- **Type:** 2BR/2BA Executive Bungalow
 
-### 2. Luxury Premium Bungalow (luxury-bungalow.html)
+### Luxury Executive Bungalow  
+- **Live Site:** https://renbran.github.io/property-rental-websites/luxury-bungalow.html
+- **Features:** Premium property page with enhanced accessibility information
+- **Price:** ₱12,500/Month
+- **Type:** 2BR/2BA Executive Bungalow
 
-- **Location**: Victors Subdivision, Block 5 Lot 23 Phase 2, Cagayan de Oro City
-- **Price**: AED 12,000/Month
-- **Type**: Premium Luxury Bungalow
-- **Area**: 80 SQM (80 SQM Usable)
-- **Features**: Ultra-modern design with animated backgrounds, interactive gallery, and premium lead forms
+### Exclusive Bungalow Rental
+- **Live Site:** https://renbran.github.io/property-rental-websites/index.html
 
-### 3. James Executive Bungalow (bungalow.html)
+## 📊 **Business Tools**
 
-- **Location**: Victors Subdivision, Cagayan de Oro City
-- **Price**: ₱12,500/Month
-- **Type**: Executive Bungalow
-- **Features**: Comprehensive rental website with image gallery and contact integration
+### Executive Summary Dashboard
 
-### 4. Executive Summary Dashboard (executive-summary-dashboard.html)
+- **Live Site:** [View Dashboard](https://renbran.github.io/property-rental-websites/executive-summary-dashboard.html)
+- **Features:** Business analytics and performance metrics
 
-- **Purpose**: OSUS Properties Lead Management Analytics
-- **Features**: Interactive charts, team performance metrics, ROI projections
-- **Technology**: Chart.js, Vanilla JavaScript, Tailwind CSS
-- **Design**: Professional executive-level dashboard with OSUS branding
+### Deal Analysis Tool
 
-## 🌐 Live Websites
+- **Live Site:** [View Tool](https://renbran.github.io/property-rental-websites/deal-analysis.html)
+- **Features:** Property investment calculation tool
 
-- **Main Page**: [Exclusive Bungalow](https://renbran.github.io/property-rental-websites/)
-- **Luxury Premium**: [Luxury Premium Bungalow](https://renbran.github.io/property-rental-websites/luxury-bungalow.html)
-- **James Executive**: [James Executive Bungalow](https://renbran.github.io/property-rental-websites/bungalow.html)
-- **Analytics Dashboard**: [Executive Summary Dashboard](https://renbran.github.io/property-rental-websites/executive-summary-dashboard.html)
+### OSUS Final Report 2025
 
-## ✨ Features
+- **Live Site:** [View Report](https://renbran.github.io/property-rental-websites/OSUS%20FINAL%20REPORT%20AS%20OF%20JULY%202025.html)
+- **Features:** Comprehensive business report for July 2025
 
-- 📱 **Responsive Design**: Optimized for all devices
-- 🎨 **Modern UI**: Glassmorphism effects and gradient designs
-- 📧 **Email Integration**: Direct contact forms using FormSubmit.co
-- 🗺️ **Google Maps**: Interactive location mapping
-- 📸 **Image Galleries**: Professional property photo showcases
-- 🔒 **Security**: Proper form validation and security measures
+## 📞 **Contact Information**
 
-## 📞 Contact Information
+- **Contact Person:** Rutchel Madelo
+- **Phone:** +639979102750
+- **Email:** kpajo1993@gmail.com
+- **WhatsApp:** +971563905772
+- **Company:** OSUS Properties
 
-- **Email**: [info@tachimao.com](mailto:info@tachimao.com)
-- **Owner**: Renbran Anthony Madelo & Kathrina Pajo
-- **Phone**: +971 56 390 5772
+## 🛠 **Recent Updates**
 
-## 🚀 Technologies Used
+- ✅ Updated contact phone number to +639979102750
+- ✅ Enhanced accessibility information with precise distances
+- ✅ Added transportation and healthcare accessibility details
+- ✅ WhatsApp integration across all websites
+- ✅ Comprehensive share links page created
+
+## � **Features**
+
+- Responsive design for all devices
+- WhatsApp direct contact integration
+- Email form submissions via FormSubmit.co
+- Interactive image galleries
+- Location maps with accessibility information
+- Professional business analytics dashboards
+
+## 🚀 **Technologies Used**
 
 - HTML5
 - CSS3 (Advanced animations and effects)
@@ -64,6 +72,15 @@ This repository contains professional property rental websites and business anal
 - FormSubmit.co (Email service)
 - Google Maps API
 - Font Awesome Icons
+- Chart.js for analytics
+- Modern glassmorphism design
+
+---
+
+**Repository:** <https://github.com/renbran/property-rental-websites>  
+**Owner:** renbran  
+**Branch:** main  
+**GitHub Pages:** Enabled
 
 ---
 
