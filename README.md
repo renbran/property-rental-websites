@@ -1,6 +1,6 @@
-# Property Rental Websites
+# Property Rental & Analytics Websites
 
-This repository contains two professional property rental websites:
+This repository contains professional property rental websites and business analytics dashboard:
 
 ## 🏡 Properties Available
 
@@ -17,10 +17,18 @@ This repository contains two professional property rental websites:
 - **Type**: Executive Bungalow
 - **Features**: Comprehensive rental website with image gallery and contact integration
 
+### 3. Executive Summary Dashboard (executive-summary-dashboard.html)
+
+- **Purpose**: OSUS Properties Lead Management Analytics
+- **Features**: Interactive charts, team performance metrics, ROI projections
+- **Technology**: React, Recharts, Tailwind CSS
+- **Design**: Professional executive-level dashboard with OSUS branding
+
 ## 🌐 Live Websites
 
 - **Main Page**: [Exclusive Bungalow](https://your-username.github.io/repository-name/)
 - **James Executive**: [James Executive Bungalow](https://your-username.github.io/repository-name/bungalow.html)
+- **Analytics Dashboard**: [Executive Summary Dashboard](https://your-username.github.io/repository-name/executive-summary-dashboard.html)
 
 ## ✨ Features
 
@@ -33,7 +41,7 @@ This repository contains two professional property rental websites:
 
 ## 📞 Contact Information
 
-- **Email**: info@tachimao.com
+- **Email**: [info@tachimao.com](mailto:info@tachimao.com)
 - **Owner**: Renbran Anthony Madelo & Kathrina Pajo
 - **Phone**: +971 56 390 5772
 
