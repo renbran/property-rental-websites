@@ -823,6 +823,257 @@
             right: 20px;
             z-index: 1000;
         }
+
+        /* Referral Bonus Section Styles */
+        .referral-bonus-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .referral-bonus-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bonus-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .bonus-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bonus-title h4 {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin: 0 0 5px 0;
+            font-weight: 600;
+        }
+
+        .bonus-title p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .bonus-calculation {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .calculation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .calculation-row:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .highlight {
+            color: #00BFFF;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .bonus-amount {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .bonus-terms h5 {
+            color: #00BFFF;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bonus-terms ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+
+        .bonus-terms li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .bonus-terms li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00FF7F;
+            font-weight: bold;
+        }
+
+        .bonus-cta {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(0, 191, 255, 0.1));
+            border-radius: 10px;
+            border: 1px dashed rgba(255, 215, 0, 0.4);
+        }
+
+        .bonus-note {
+            color: #FFD700;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .referral-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .referral-btn:hover {
+            background: linear-gradient(45deg, #FFA500, #FFD700);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .referral-bonus-section {
+                margin: 20px 0;
+                padding: 20px;
+            }
+
+            .bonus-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .calculation-row {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+
+            .referral-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+
+        /* Referral Form Styles */
+        .referral-section {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            margin: 25px 0;
+        }
+
+        .referral-checkbox {
+            margin-bottom: 15px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            gap: 12px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            border-radius: 4px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-color: #FFD700;
+        }
+
+        .checkbox-label input[type="checkbox"]:checked + .checkmark:after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .referral-details {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            animation: slideDown 0.3s ease;
+        }
+
+        .referral-details .form-group {
+            margin-bottom: 15px;
+        }
+
+        .referral-details .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+                padding: 0 20px;
+            }
+            to {
+                opacity: 1;
+                max-height: 200px;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -837,7 +1088,7 @@
         
         <div class="header-cta">
             <a href="#leadForm" class="cta-primary">Schedule Viewing</a>
-            <a href="https://wa.me/971563905772?text=Hi! I'm interested in the James Executive Bungalow rental at Victors Subdivision, Cagayan de Oro (₱12,500/month). Can we schedule a viewing?" class="cta-secondary">
+            <a href="https://wa.me/971563905772?text=Hi! I'm interested in the James Executive Bungalow rental at Victors Subdivision, Cagayan de Oro (₱12,500/month). Can we schedule a viewing? Also, I'd like to know more about the referral bonus program." class="cta-secondary">
                 <i class="fab fa-whatsapp"></i>
                 WhatsApp Direct
             </a>
@@ -902,6 +1153,48 @@
                         <div class="amenity-tag">📺 Cable Ready</div>
                         <div class="amenity-tag">💧 24/7 Water Supply</div>
                         <div class="amenity-tag">⚡ Stable Power Supply</div>
+                    </div>
+                </div>
+
+                <!-- Referral Bonus Section -->
+                <div class="referral-bonus-section">
+                    <h3 class="section-title">🎯 Referral Bonus Program</h3>
+                    <div class="referral-bonus-card">
+                        <div class="bonus-header">
+                            <div class="bonus-icon">💰</div>
+                            <div class="bonus-title">
+                                <h4>2% Referral Bonus</h4>
+                                <p>For Confirmed 1-Year Lease Agreements</p>
+                            </div>
+                        </div>
+                        <div class="bonus-details">
+                            <div class="bonus-calculation">
+                                <div class="calculation-row">
+                                    <span>Annual Rent Value:</span>
+                                    <span class="highlight">₱150,000</span>
+                                </div>
+                                <div class="calculation-row">
+                                    <span>Your Referral Bonus (2%):</span>
+                                    <span class="bonus-amount">₱3,000</span>
+                                </div>
+                            </div>
+                            <div class="bonus-terms">
+                                <h5>✅ Qualification Requirements:</h5>
+                                <ul>
+                                    <li>Successful tenant referral</li>
+                                    <li>Completed 1-year lease agreement</li>
+                                    <li>Full deposit and first month rent paid</li>
+                                    <li>Tenant must complete 30 days of occupancy</li>
+                                </ul>
+                                <div class="bonus-cta">
+                                    <p class="bonus-note">Refer a qualified tenant and earn ₱3,000 bonus!</p>
+                                    <a href="https://wa.me/971563905772?text=Hi! I'd like to refer someone for the James Executive Bungalow. Can you provide me with the referral process details?" class="referral-btn">
+                                        <i class="fas fa-users"></i>
+                                        Start Referral Process
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -971,6 +1264,27 @@
                             <option value="planning">Planning (1-3 months)</option>
                             <option value="exploring">Just Exploring</option>
                         </select>
+                    </div>
+                    
+                    <!-- Referral Information -->
+                    <div class="form-group referral-section">
+                        <div class="referral-checkbox">
+                            <input type="checkbox" id="isReferral" name="is_referral" value="yes">
+                            <label for="isReferral" class="checkbox-label">
+                                <span class="checkmark"></span>
+                                I am referring someone for this property (Eligible for ₱3,000 referral bonus)
+                            </label>
+                        </div>
+                        <div class="referral-details" id="referralDetails" style="display: none;">
+                            <div class="form-group">
+                                <label for="referralName">Tenant's Full Name</label>
+                                <input type="text" id="referralName" name="referral_tenant_name" placeholder="Full name of the person you're referring">
+                            </div>
+                            <div class="form-group">
+                                <label for="referralPhone">Tenant's Phone Number</label>
+                                <input type="tel" id="referralPhone" name="referral_tenant_phone" placeholder="Phone number of the person you're referring">
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -1204,6 +1518,7 @@
                             <div class="quick-option" data-message="What are the rental terms?">Rental Terms</div>
                             <div class="quick-option" data-message="Schedule a viewing">Schedule Viewing</div>
                             <div class="quick-option" data-message="What amenities are included?">Amenities</div>
+                            <div class="quick-option" data-message="Tell me about the referral bonus program">Referral Bonus</div>
                         </div>
                     </div>
                 </div>
@@ -1240,6 +1555,25 @@
         // Generate particles
         setInterval(createParticle, 500);
 
+        // Referral checkbox functionality
+        document.getElementById('isReferral').addEventListener('change', function(e) {
+            const referralDetails = document.getElementById('referralDetails');
+            if (e.target.checked) {
+                referralDetails.style.display = 'block';
+                // Make referral fields required when checkbox is checked
+                document.getElementById('referralName').setAttribute('required', 'required');
+                document.getElementById('referralPhone').setAttribute('required', 'required');
+            } else {
+                referralDetails.style.display = 'none';
+                // Remove required attribute when checkbox is unchecked
+                document.getElementById('referralName').removeAttribute('required');
+                document.getElementById('referralPhone').removeAttribute('required');
+                // Clear the values
+                document.getElementById('referralName').value = '';
+                document.getElementById('referralPhone').value = '';
+            }
+        });
+
         // Form handling with email integration
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             // Get form data for validation
@@ -1251,6 +1585,15 @@
                 e.preventDefault();
                 alert('Please fill in all required fields (Name, Email, and Phone).');
                 return false;
+            }
+
+            // Referral validation
+            if (data.is_referral === 'yes') {
+                if (!data.referral_tenant_name || !data.referral_tenant_phone) {
+                    e.preventDefault();
+                    alert('Please fill in the tenant information for your referral.');
+                    return false;
+                }
             }
             
             // Email validation
