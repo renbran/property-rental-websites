@@ -631,6 +631,254 @@
         font-size: clamp(0.9rem, 2.5vw, 1rem);
       }
 
+      /* Referral Bonus Section */
+      .referral-bonus {
+        padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 4vw, 2rem);
+        background: linear-gradient(135deg, rgba(244, 162, 97, 0.1), rgba(231, 111, 81, 0.1));
+        position: relative;
+        overflow: hidden;
+      }
+
+      .referral-bonus::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 50%, rgba(244, 162, 97, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(231, 111, 81, 0.2) 0%, transparent 50%);
+        animation: shimmer 8s ease-in-out infinite;
+        z-index: 0;
+      }
+
+      @keyframes shimmer {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+
+      .referral-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .referral-card {
+        background: var(--glass);
+        backdrop-filter: blur(20px);
+        border: 2px solid var(--secondary);
+        border-radius: 25px;
+        padding: clamp(2rem, 6vw, 3rem);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .referral-card::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, var(--secondary), var(--accent), var(--secondary));
+        border-radius: 25px;
+        z-index: -1;
+        animation: glow 3s ease-in-out infinite;
+      }
+
+      @keyframes glow {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+
+      .bonus-highlight {
+        display: flex;
+        align-items: center;
+        gap: clamp(1rem, 4vw, 2rem);
+        margin-bottom: clamp(2rem, 5vw, 3rem);
+      }
+
+      .bonus-icon {
+        background: var(--secondary);
+        border-radius: 50%;
+        width: clamp(60px, 15vw, 80px);
+        height: clamp(60px, 15vw, 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        color: var(--dark);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
+
+      .bonus-details h3 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        color: var(--secondary);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .bonus-breakdown {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .bonus-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.8rem 1.2rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .bonus-label {
+        font-weight: 500;
+        color: var(--text-light);
+      }
+
+      .bonus-amount {
+        font-weight: 700;
+        color: var(--secondary);
+        font-size: 1.1rem;
+      }
+
+      .referral-benefits {
+        margin: clamp(2rem, 5vw, 3rem) 0;
+      }
+
+      .referral-benefits h4 {
+        font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+
+      .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .benefit-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(244, 162, 97, 0.3);
+      }
+
+      .benefit-item i {
+        color: var(--secondary);
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+
+      .benefit-item span {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        line-height: 1.4;
+      }
+
+      .referral-example {
+        background: rgba(244, 162, 97, 0.15);
+        border: 2px solid var(--secondary);
+        border-radius: 15px;
+        padding: clamp(1.5rem, 4vw, 2rem);
+        margin: clamp(2rem, 5vw, 3rem) 0;
+        text-align: center;
+      }
+
+      .referral-example h4 {
+        font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+        color: var(--secondary);
+        margin-bottom: 1rem;
+      }
+
+      .example-calculation {
+        display: grid;
+        gap: 0.5rem;
+        font-size: clamp(1rem, 2.5vw, 1.1rem);
+      }
+
+      .example-calculation p {
+        margin: 0;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+      }
+
+      .example-calculation strong {
+        color: var(--secondary);
+        font-weight: 700;
+      }
+
+      .referral-cta {
+        display: flex;
+        gap: clamp(1rem, 3vw, 1.5rem);
+        justify-content: center;
+        margin-top: clamp(2rem, 5vw, 3rem);
+        flex-wrap: wrap;
+      }
+
+      .referral-btn {
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        animation: buttonGlow 2s ease-in-out infinite;
+      }
+
+      @keyframes buttonGlow {
+        0%, 100% { box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4); }
+        50% { box-shadow: 0 6px 25px rgba(244, 162, 97, 0.6); }
+      }
+
+      .referral-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(244, 162, 97, 0.6);
+      }
+
+      /* Mobile Styles for Referral Section */
+      @media (max-width: 767px) {
+        .bonus-highlight {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .bonus-item {
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+        }
+
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .referral-cta {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .referral-cta .cta-button {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+
       /* Footer */
       .footer {
         background: var(--dark);
@@ -851,6 +1099,7 @@
           <li><a href="#features">Features</a></li>
           <li><a href="#location">Location</a></li>
           <li><a href="#pricing">Rental Info</a></li>
+          <li><a href="#referral">Referral Bonus</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -1110,6 +1359,80 @@
             <i class="fas fa-calendar-alt"></i>
             Schedule a Viewing
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Referral Bonus Section -->
+    <section class="referral-bonus fade-in" id="referral">
+      <div class="referral-container">
+        <div class="section-header">
+          <h2>🎉 Earn 2% Referral Bonus</h2>
+          <p>Turn your network into income! Earn money for every successful referral and renewal</p>
+        </div>
+        
+        <div class="referral-content">
+          <div class="referral-card">
+            <div class="bonus-highlight">
+              <div class="bonus-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+              </div>
+              <div class="bonus-details">
+                <h3>2% Commission Structure</h3>
+                <div class="bonus-breakdown">
+                  <div class="bonus-item">
+                    <span class="bonus-label">New Annual Clients:</span>
+                    <span class="bonus-amount">2% of Total Annual Rent</span>
+                  </div>
+                  <div class="bonus-item">
+                    <span class="bonus-label">Annual Renewals:</span>
+                    <span class="bonus-amount">2% of Each Renewal</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="referral-benefits">
+              <h4>Why Partner With Us?</h4>
+              <div class="benefits-grid">
+                <div class="benefit-item">
+                  <i class="fas fa-clock"></i>
+                  <span>Get paid within 24 hours after agreement signing</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fas fa-headset"></i>
+                  <span>Full support and tool assistance for all referrers</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fas fa-user-shield"></i>
+                  <span>Always sign in our portal with clients and your name</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fas fa-handshake"></i>
+                  <span>Professional partnership with transparent tracking</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fas fa-chart-line"></i>
+                  <span>Recurring income on every renewal</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fas fa-mobile-alt"></i>
+                  <span>Easy referral management through our portal</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="referral-cta">
+              <a href="#contact" class="cta-button referral-btn">
+                <i class="fas fa-rocket"></i>
+                Start Earning Today
+              </a>
+              <a href="https://wa.me/971563905772?text=Hi! I'm interested in your 2% referral program. How can I start earning by referring annual rental clients?" class="cta-button whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp for Details
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -832,6 +832,26 @@
             border-radius: 20px;
             border: 2px solid rgba(255, 215, 0, 0.3);
             backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .referral-bonus-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(0, 191, 255, 0.2) 0%, transparent 50%);
+            animation: shimmer 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         .referral-bonus-card {
@@ -839,6 +859,8 @@
             border-radius: 15px;
             padding: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .bonus-header {
@@ -849,18 +871,28 @@
         }
 
         .bonus-icon {
-            font-size: 2.5rem;
             background: linear-gradient(45deg, #FFD700, #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .bonus-title h4 {
             font-size: 1.5rem;
             color: #FFD700;
             margin: 0 0 5px 0;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .bonus-title p {
@@ -869,12 +901,47 @@
             font-size: 0.95rem;
         }
 
+        .bonus-breakdown {
+            display: grid;
+            gap: 0.8rem;
+            margin-bottom: 25px;
+        }
+
+        .bonus-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .bonus-label {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .bonus-amount {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
         .bonus-calculation {
             background: rgba(0, 0, 0, 0.2);
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .bonus-calculation h5 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: center;
         }
 
         .calculation-row {
@@ -897,41 +964,47 @@
             font-size: 1.1rem;
         }
 
-        .bonus-amount {
-            color: #FFD700;
-            font-weight: 700;
-            font-size: 1.3rem;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .bonus-terms h5 {
+        .bonus-benefits h5 {
             color: #00BFFF;
             margin-bottom: 15px;
             font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .bonus-terms ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 25px;
+        .benefit-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
         }
 
-        .bonus-terms li {
+        .benefit-item i {
+            color: #FFD700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-item span {
+            font-size: 0.9rem;
+            line-height: 1.4;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .bonus-terms li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #00FF7F;
-            font-weight: bold;
         }
 
         .bonus-cta {
@@ -949,12 +1022,17 @@
             font-size: 1.05rem;
         }
 
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .referral-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #000;
             padding: 12px 25px;
             border-radius: 25px;
             text-decoration: none;
@@ -964,10 +1042,24 @@
             cursor: pointer;
         }
 
+        .referral-btn.primary {
+            background: linear-gradient(45deg, #25D366, #20b358);
+            color: white;
+        }
+
+        .referral-btn.secondary {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
         .referral-btn:hover {
-            background: linear-gradient(45deg, #FFA500, #FFD700);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .referral-btn.primary:hover {
+            background: linear-gradient(45deg, #20b358, #25D366);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -982,15 +1074,32 @@
                 gap: 10px;
             }
 
+            .bonus-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
             .calculation-row {
                 flex-direction: column;
                 gap: 5px;
                 align-items: flex-start;
             }
 
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
             .referral-btn {
                 font-size: 0.9rem;
                 padding: 10px 20px;
+                width: 100%;
+                max-width: 300px;
             }
         }
 
@@ -1158,39 +1267,70 @@
 
                 <!-- Referral Bonus Section -->
                 <div class="referral-bonus-section">
-                    <h3 class="section-title">🎯 Referral Bonus Program</h3>
+                    <h3 class="section-title">� Earn 2% Referral Bonus</h3>
                     <div class="referral-bonus-card">
                         <div class="bonus-header">
-                            <div class="bonus-icon">💰</div>
+                            <div class="bonus-icon">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </div>
                             <div class="bonus-title">
-                                <h4>2% Referral Bonus</h4>
-                                <p>For Confirmed 1-Year Lease Agreements</p>
+                                <h4>2% Commission Structure</h4>
+                                <p>Turn your network into income! Earn money for every successful referral and renewal</p>
                             </div>
                         </div>
+                        
+                        <div class="bonus-breakdown">
+                            <div class="bonus-item">
+                                <span class="bonus-label">New Annual Clients:</span>
+                                <span class="bonus-amount">2% of Total Annual Rent</span>
+                            </div>
+                            <div class="bonus-item">
+                                <span class="bonus-label">Annual Renewals:</span>
+                                <span class="bonus-amount">2% of Each Renewal</span>
+                            </div>
+                        </div>
+                        
                         <div class="bonus-details">
-                            <div class="bonus-calculation">
-                                <div class="calculation-row">
-                                    <span>Annual Rent Value:</span>
-                                    <span class="highlight">₱150,000</span>
-                                </div>
-                                <div class="calculation-row">
-                                    <span>Your Referral Bonus (2%):</span>
-                                    <span class="bonus-amount">₱3,000</span>
+                            <div class="bonus-benefits">
+                                <h5>✅ Why Partner With Us?</h5>
+                                <div class="benefits-grid">
+                                    <div class="benefit-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Get paid within 24 hours after agreement signing</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-headset"></i>
+                                        <span>Full support and tool assistance for all referrers</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-user-shield"></i>
+                                        <span>Always sign in our portal with clients and your name</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-handshake"></i>
+                                        <span>Professional partnership with transparent tracking</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Recurring income on every renewal</span>
+                                    </div>
+                                    <div class="benefit-item">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>Easy referral management through our portal</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="bonus-terms">
-                                <h5>✅ Qualification Requirements:</h5>
-                                <ul>
-                                    <li>Successful tenant referral</li>
-                                    <li>Completed 1-year lease agreement</li>
-                                    <li>Full deposit and first month rent paid</li>
-                                    <li>Tenant must complete 30 days of occupancy</li>
-                                </ul>
-                                <div class="bonus-cta">
-                                    <p class="bonus-note">Refer a qualified tenant and earn ₱3,000 bonus!</p>
-                                    <a href="https://wa.me/971563905772?text=Hi! I'd like to refer someone for the James Executive Bungalow. Can you provide me with the referral process details?" class="referral-btn">
-                                        <i class="fas fa-users"></i>
-                                        Start Referral Process
+                            
+                            <div class="bonus-cta">
+                                <p class="bonus-note">Start earning today! Refer qualified tenants and build recurring income.</p>
+                                <div class="cta-buttons">
+                                    <a href="https://wa.me/971563905772?text=Hi! I'm interested in your 2% referral program. How can I start earning by referring annual rental clients?" class="referral-btn primary">
+                                        <i class="fab fa-whatsapp"></i>
+                                        WhatsApp for Details
+                                    </a>
+                                    <a href="mailto:kpajo1993@gmail.com?subject=Referral Program Inquiry&body=Hi! I'm interested in joining your 2% referral program for rental properties. Please provide me with more details on how to get started." class="referral-btn secondary">
+                                        <i class="fas fa-rocket"></i>
+                                        Start Earning Today
                                     </a>
                                 </div>
                             </div>
